@@ -1,10 +1,12 @@
-import { View, Text , Image, ScrollView} from 'react-native'
+import { View, Text , Image, ScrollView, Alert} from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from '../../constants';
 import { Link } from 'expo-router';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
+import { signIn } from '../../lib/appwrite';
+import { router } from 'expo-router';
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -14,8 +16,23 @@ const SignIn = () => {
 
   const[isSubmit , setIsSubmit] = useState(false)
 
-  const submit = () => {
+  const submit =  async () => {
+    if(!form.email || !form.password){
+      Alert.alert('Error', 'Please fill in all the details')
+    }
+    setIsSubmit(true);
+    try{
+      await signIn(form.email,form.password);
 
+      //set to global state
+
+      router.replace('/home');
+    }catch(error){
+      Alert.alert('Error', error.message);
+    }finally{
+      setIsSubmit(false);
+    }
+    
   }
 
   return (
