@@ -12,7 +12,7 @@ export const useGlobalContext = () => useContext(GlobalContext);
     const [isLoading , setIsLoading] = useState(true);
 
     useEffect(() => {
-        getCurrentUser
+        getCurrentUser()
             .then((res) => {
                 if(res) {
                     setIsLoggedIn(true);
