@@ -28,8 +28,8 @@ const Home = () => {
         //data={[]}
         keyExtractor={(item)=> item.$id}
         renderItem={({item}) => (
-          <Text className="text-3xl text-white">
-            {item.id}
+          <Text className="text-3xl text-white" key={item.id}>
+            {item.title}
           </Text>
         )}
         ListHeaderComponent={() => (
